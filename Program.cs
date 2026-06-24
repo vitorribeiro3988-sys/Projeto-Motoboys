@@ -1,0 +1,119 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            double[] faturamentos = new double[10];
+            int opcao = -1;
+
+            while (opcao != 0)
+            {
+                Console.WriteLine("\n0 - Finalizar o dia.");
+                Console.WriteLine("1 - Informar o valor de uma entrega.");
+                Console.WriteLine("2 - Listar faturamentos.");
+                Console.WriteLine("3 - Listar comissões");
+                Console.WriteLine("4 - Motoboy destaque");
+                Console.WriteLine("Escolha uma opção: ");
+
+                opcao = int.Parse(Console.ReadLine());
+
+                if (opcao == 0)
+                {
+                    Console.WriteLine("Tem certeza que deseja finalizar o dia? (S/N)");
+                    string confirmar = Console.ReadLine();
+
+                    if (confirmar == "S" || confirmar == "s") { }
+                    else { opcao = -1; }
+                }
+                else if (opcao == 1)
+                {
+                    Console.WriteLine("Informe o número do motoboy (1 a 10): ");
+                    int moto = int.Parse(Console.ReadLine());
+
+                    if (moto < 1 || moto > 10)
+                    {
+                        Console.WriteLine("\n========================================");
+                        Console.WriteLine("Motoboy inválido. Digite um número entre 1 e 10.");
+                        Console.WriteLine("========================================");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Informe o valor da entrega: R$");
+                        double valor = double.Parse(Console.ReadLine());
+
+                        faturamentos[moto - 1] = faturamentos[moto - 1] + valor;
+
+                        Console.WriteLine("\n========================================");
+                        Console.WriteLine("Faturamento atualizado.");
+                        Console.WriteLine("========================================");
+                    }
+                }
+                else if (opcao == 2)
+                {
+                    Console.WriteLine("\n========================================");
+                    double totalGeral = 0;
+
+                    for (int i = 0; i < 10; i = i + 1)
+                    {
+                        Console.WriteLine("Moto " + (i + 1) + " - R$ " + faturamentos[i]);
+                        totalGeral = totalGeral + faturamentos[i];
+                    }
+                    Console.WriteLine("Total: R$ " + totalGeral);
+                    Console.WriteLine("========================================");
+                }
+                else if (opcao == 3)
+                {
+                    Console.WriteLine("\n========================================");
+                    double totalComissoes = 0;
+
+                    for (int i = 0; i < 10; i = i + 1)
+                    {
+                        double comissao = faturamentos[i] * 0.10;
+                        Console.WriteLine("Moto " + (i + 1) + " - Comissao: R$ " + comissao);
+                        totalComissoes = totalComissoes + comissao;
+                    }
+                    Console.WriteLine("Total de comissoes: R$ " + totalComissoes);
+                    Console.WriteLine("========================================");
+                }
+                else if (opcao == 4)
+                {
+                    Console.WriteLine("\n========================================");
+                    int motoDestaque = 0;
+                    double maiorFaturamento = faturamentos[0];
+
+                    for (int i = 1; i < 10; i = i + 1)
+                    {
+                        if (faturamentos[i] > maiorFaturamento)
+                        {
+                            maiorFaturamento = faturamentos[i];
+                            motoDestaque = i;
+                        }
+                    }
+
+                    if (maiorFaturamento > 0)
+                    {
+                        Console.WriteLine("Moto que mais faturou: " + (motoDestaque + 1) + " - R$ " + maiorFaturamento);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nenhum faturamento registrado hoje.");
+                    }
+                    Console.WriteLine("========================================");
+                }
+                else
+                {
+                    Console.WriteLine("\n========================================");
+                    Console.WriteLine("Opção inválida. Tente novamente.");
+                    Console.WriteLine("========================================");
+                }
+            }
+        }
+    }
+}
